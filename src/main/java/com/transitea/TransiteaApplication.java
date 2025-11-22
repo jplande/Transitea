@@ -1,0 +1,13 @@
+package com.transitea;
+
+import org.springframework.boot.SpringApplication;
+import org.springframework.boot.autoconfigure.SpringBootApplication;
+
+@SpringBootApplication
+public class TransiteaApplication {
+
+	public static void main(String[] args) {
+		SpringApplication.run(TransiteaApplication.class, args);
+	}
+
+}
