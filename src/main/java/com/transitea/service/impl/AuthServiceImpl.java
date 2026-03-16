@@ -89,7 +89,7 @@ public class AuthServiceImpl implements AuthService {
             throw new ErreurMetier("Email ou mot de passe incorrect");
         }
 
-        Utilisateur utilisateur = utilisateurRepository.findByEmailAndSupprimefalse(requete.email())
+        Utilisateur utilisateur = utilisateurRepository.findByEmailAndSupprimeFalse(requete.email())
                 .orElseThrow(() -> new EntiteNonTrouveeException("Utilisateur", requete.email()));
 
         refreshTokenRepository.revoquerTousLesTokensUtilisateur(utilisateur);

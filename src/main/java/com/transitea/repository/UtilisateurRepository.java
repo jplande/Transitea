@@ -11,13 +11,13 @@ import java.util.Optional;
 @Repository
 public interface UtilisateurRepository extends JpaRepository<Utilisateur, Long> {
 
-    Optional<Utilisateur> findByEmailAndSupprimefalse(String email);
+    Optional<Utilisateur> findByEmailAndSupprimeFalse(String email);
 
-    Optional<Utilisateur> findByUuidAndSupprimefalse(String uuid);
+    Optional<Utilisateur> findByUuidAndSupprimeFalse(String uuid);
 
     boolean existsByEmail(String email);
 
     boolean existsByTelephone(String telephone);
 
-    List<Utilisateur> findByStatutAndSupprimefalse(StatutUtilisateur statut);
+    List<Utilisateur> findByStatutAndSupprimeFalse(StatutUtilisateur statut);
 }

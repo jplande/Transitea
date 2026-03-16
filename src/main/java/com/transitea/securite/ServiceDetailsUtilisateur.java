@@ -19,7 +19,7 @@ public class ServiceDetailsUtilisateur implements UserDetailsService {
     @Override
     @Transactional(readOnly = true)
     public UserDetails loadUserByUsername(String email) throws UsernameNotFoundException {
-        return utilisateurRepository.findByEmailAndSupprimefalse(email)
+        return utilisateurRepository.findByEmailAndSupprimeFalse(email)
                 .orElseThrow(() -> new UsernameNotFoundException(
                         "Utilisateur introuvable avec l'email : " + email));
     }
