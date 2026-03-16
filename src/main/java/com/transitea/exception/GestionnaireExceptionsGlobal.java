@@ -43,6 +43,18 @@ public class GestionnaireExceptionsGlobal {
         return ResponseEntity.badRequest().body(erreur);
     }
 
+    @ExceptionHandler(TokenInvalideException.class)
+    public ResponseEntity<ErreurReponse> gererTokenInvalide(
+            TokenInvalideException ex, HttpServletRequest requete) {
+
+        ErreurReponse erreur = new ErreurReponse(
+                HttpStatus.UNAUTHORIZED.value(),
+                ex.getMessage(),
+                requete.getRequestURI()
+        );
+        return ResponseEntity.status(HttpStatus.UNAUTHORIZED).body(erreur);
+    }
+
     @ExceptionHandler(AccesNonAutoriseException.class)
     public ResponseEntity<ErreurReponse> gererAccesNonAutorise(
             AccesNonAutoriseException ex, HttpServletRequest requete) {
