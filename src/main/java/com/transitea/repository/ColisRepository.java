@@ -17,13 +17,13 @@ import java.util.Optional;
 @Repository
 public interface ColisRepository extends JpaRepository<Colis, Long> {
 
-    Optional<Colis> findByCodeTrackingAndSupprimefalse(String codeTracking);
+    Optional<Colis> findByCodeTrackingAndSupprimeFalse(String codeTracking);
 
-    Optional<Colis> findByUuidAndSupprimefalse(String uuid);
+    Optional<Colis> findByUuidAndSupprimeFalse(String uuid);
 
-    Page<Colis> findByTransporteurAndSupprimefalse(Utilisateur transporteur, Pageable pageable);
+    Page<Colis> findByTransporteurAndSupprimeFalse(Utilisateur transporteur, Pageable pageable);
 
-    Page<Colis> findByTransporteurAndStatutActuelAndSupprimefalse(
+    Page<Colis> findByTransporteurAndStatutActuelAndSupprimeFalse(
             Utilisateur transporteur, StatutColis statut, Pageable pageable);
 
     @Query("SELECT c FROM Colis c WHERE c.transporteur = :transporteur " +
@@ -35,10 +35,10 @@ public interface ColisRepository extends JpaRepository<Colis, Long> {
             @Param("recherche") String recherche,
             Pageable pageable);
 
-    List<Colis> findByTransporteurAndDateCreationBetweenAndSupprimefalse(
+    List<Colis> findByTransporteurAndDateCreationBetweenAndSupprimeFalse(
             Utilisateur transporteur, LocalDateTime debut, LocalDateTime fin);
 
-    long countByTransporteurAndStatutActuelAndSupprimefalse(
+    long countByTransporteurAndStatutActuelAndSupprimeFalse(
             Utilisateur transporteur, StatutColis statut);
 
     @Query("SELECT c FROM Colis c WHERE c.supprime = false " +

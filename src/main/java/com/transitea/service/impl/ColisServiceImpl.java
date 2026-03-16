@@ -83,10 +83,10 @@ public class ColisServiceImpl implements ColisService {
         Page<Colis> page;
 
         if (statut != null) {
-            page = colisRepository.findByTransporteurAndStatutActuelAndSupprimefalse(
+            page = colisRepository.findByTransporteurAndStatutActuelAndSupprimeFalse(
                     transporteur, statut, pageable);
         } else {
-            page = colisRepository.findByTransporteurAndSupprimefalse(transporteur, pageable);
+            page = colisRepository.findByTransporteurAndSupprimeFalse(transporteur, pageable);
         }
 
         Page<ColisReponse> pageReponse = page.map(colisMapper::versReponse);
@@ -205,7 +205,7 @@ public class ColisServiceImpl implements ColisService {
     private String genererCodeTrackingUnique() {
         for (int tentative = 0; tentative < TENTATIVES_MAX_CODE_TRACKING; tentative++) {
             String code = GenerateurCodeTracking.generer();
-            if (colisRepository.findByCodeTrackingAndSupprimefalse(code).isEmpty()) {
+            if (colisRepository.findByCodeTrackingAndSupprimeFalse(code).isEmpty()) {
                 return code;
             }
         }
