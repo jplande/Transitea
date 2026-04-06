@@ -87,7 +87,7 @@ class AuthServiceImplTest {
     // --- inscrire ---
 
     @Test
-    void inscrire_doitCreerUtilisateur_etRetournerTokens_quandEmailDisponible() {
+    void doit_creer_utilisateur_et_retourner_tokens_quand_email_disponible() {
         InscriptionRequete requete = new InscriptionRequete(
                 "Lumbu", "Louange", "louange@transitea.cd",
                 "0812345678", "MotDePasse123!");
@@ -112,7 +112,7 @@ class AuthServiceImplTest {
     }
 
     @Test
-    void inscrire_doitLancer_ErreurMetier_quandEmailDejaUtilise() {
+    void doit_lancer_erreur_metier_quand_email_deja_utilise() {
         InscriptionRequete requete = new InscriptionRequete(
                 "Lumbu", "Louange", "louange@transitea.cd",
                 null, "MotDePasse123!");
@@ -126,7 +126,7 @@ class AuthServiceImplTest {
     }
 
     @Test
-    void inscrire_doitLancer_ErreurMetier_quandTelephoneDejaUtilise() {
+    void doit_lancer_erreur_metier_quand_telephone_deja_utilise() {
         InscriptionRequete requete = new InscriptionRequete(
                 "Lumbu", "Louange", "nouveau@transitea.cd",
                 "0812345678", "MotDePasse123!");
@@ -143,7 +143,7 @@ class AuthServiceImplTest {
     // --- connecter ---
 
     @Test
-    void connecter_doitRetournerTokens_quandCredentielsValides() {
+    void doit_retourner_tokens_quand_credentiels_valides() {
         ConnexionRequete requete = new ConnexionRequete("louange@transitea.cd", "MotDePasse123!");
         when(utilisateurRepository.findByEmailAndSupprimeFalse(requete.email()))
                 .thenReturn(Optional.of(utilisateur));
@@ -159,7 +159,7 @@ class AuthServiceImplTest {
     }
 
     @Test
-    void connecter_doitLancer_ErreurMetier_quandMauvaisCredentiels() {
+    void doit_lancer_erreur_metier_quand_mauvais_credentiels() {
         ConnexionRequete requete = new ConnexionRequete("louange@transitea.cd", "MauvaisMotDePasse");
         when(gestionnaireAuthentification.authenticate(any(UsernamePasswordAuthenticationToken.class)))
                 .thenThrow(new BadCredentialsException("Bad credentials"));
@@ -174,7 +174,7 @@ class AuthServiceImplTest {
     // --- rafraichir ---
 
     @Test
-    void rafraichir_doitRetournerNouveauxTokens_quandRefreshTokenValide() {
+    void doit_retourner_nouveaux_tokens_quand_refresh_token_valide() {
         RafraichissementRequete requete = new RafraichissementRequete("refresh-token-valide");
         when(serviceJwt.validerRefreshToken("refresh-token-valide")).thenReturn(true);
         when(refreshTokenRepository.findByToken("refresh-token-valide"))
@@ -191,7 +191,7 @@ class AuthServiceImplTest {
     }
 
     @Test
-    void rafraichir_doitLancer_TokenInvalideException_quandJwtInvalide() {
+    void doit_lancer_token_invalide_exception_quand_jwt_invalide() {
         RafraichissementRequete requete = new RafraichissementRequete("token-expire");
         when(serviceJwt.validerRefreshToken("token-expire")).thenReturn(false);
 
@@ -202,7 +202,7 @@ class AuthServiceImplTest {
     }
 
     @Test
-    void rafraichir_doitLancer_TokenInvalideException_quandTokenRevoque() {
+    void doit_lancer_token_invalide_exception_quand_token_revoque() {
         RafraichissementRequete requete = new RafraichissementRequete("token-revoque");
         RefreshToken tokenRevoque = RefreshToken.builder()
                 .utilisateur(utilisateur)
@@ -221,7 +221,7 @@ class AuthServiceImplTest {
     }
 
     @Test
-    void rafraichir_doitLancer_TokenInvalideException_quandTokenExpire() {
+    void doit_lancer_token_invalide_exception_quand_token_expire() {
         RafraichissementRequete requete = new RafraichissementRequete("token-expire-bdd");
         RefreshToken tokenExpire = RefreshToken.builder()
                 .utilisateur(utilisateur)
@@ -240,7 +240,7 @@ class AuthServiceImplTest {
     // --- deconnecter ---
 
     @Test
-    void deconnecter_doitRevoquer_LeRefreshToken_quandTokenExiste() {
+    void doit_revoquer_refresh_token_quand_token_existe() {
         when(refreshTokenRepository.findByToken("refresh-token-valide"))
                 .thenReturn(Optional.of(refreshTokenValide));
         when(refreshTokenRepository.save(any())).thenReturn(refreshTokenValide);
@@ -252,7 +252,7 @@ class AuthServiceImplTest {
     }
 
     @Test
-    void deconnecter_doitNePasLancer_Exception_quandTokenInexistant() {
+    void doit_ne_pas_lancer_exception_quand_token_inexistant() {
         when(refreshTokenRepository.findByToken("token-inconnu"))
                 .thenReturn(Optional.empty());
 
@@ -264,7 +264,7 @@ class AuthServiceImplTest {
     // --- obtenirProfil ---
 
     @Test
-    void obtenirProfil_doitRetourner_LesInfosUtilisateur() {
+    void doit_retourner_les_infos_utilisateur() {
         UtilisateurReponse reponse = authService.obtenirProfil(utilisateur);
 
         assertThat(reponse.email()).isEqualTo("louange@transitea.cd");

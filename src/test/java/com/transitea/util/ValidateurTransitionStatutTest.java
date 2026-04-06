@@ -30,7 +30,7 @@ class ValidateurTransitionStatutTest {
         "EN_LIVRAISON, RETOUR_EXPEDITEUR",
         "REFUSE, RETOUR_EXPEDITEUR"
     })
-    void valider_doitAccepter_LesTransitionsAutorisees(StatutColis ancien, StatutColis nouveau) {
+    void doit_accepter_les_transitions_autorisees(StatutColis ancien, StatutColis nouveau) {
         assertThatCode(() -> ValidateurTransitionStatut.valider(ancien, nouveau))
                 .doesNotThrowAnyException();
     }
@@ -45,29 +45,28 @@ class ValidateurTransitionStatutTest {
         "LIVRE, EN_LIVRAISON",
         "RETOUR_EXPEDITEUR, ENREGISTRE"
     })
-    void valider_doitLancer_TransitionStatutInvalideException_PourTransitionsInterdites(
-            StatutColis ancien, StatutColis nouveau) {
+    void doit_lancer_exception_pour_les_transitions_interdites(StatutColis ancien, StatutColis nouveau) {
         assertThatThrownBy(() -> ValidateurTransitionStatut.valider(ancien, nouveau))
                 .isInstanceOf(TransitionStatutInvalideException.class);
     }
 
     @Test
-    void estStatutTerminal_doitRetourner_True_PourLIVRE() {
+    void doit_retourner_true_pour_statut_livre() {
         assertThat(ValidateurTransitionStatut.estStatutTerminal(StatutColis.LIVRE)).isTrue();
     }
 
     @Test
-    void estStatutTerminal_doitRetourner_True_PourRETOUR_EXPEDITEUR() {
+    void doit_retourner_true_pour_statut_retour_expediteur() {
         assertThat(ValidateurTransitionStatut.estStatutTerminal(StatutColis.RETOUR_EXPEDITEUR)).isTrue();
     }
 
     @Test
-    void estStatutTerminal_doitRetourner_False_PourENREGISTRE() {
+    void doit_retourner_false_pour_statut_enregistre() {
         assertThat(ValidateurTransitionStatut.estStatutTerminal(StatutColis.ENREGISTRE)).isFalse();
     }
 
     @Test
-    void estStatutTerminal_doitRetourner_False_PourEN_TRANSIT() {
+    void doit_retourner_false_pour_statut_en_transit() {
         assertThat(ValidateurTransitionStatut.estStatutTerminal(StatutColis.EN_TRANSIT)).isFalse();
     }
 }

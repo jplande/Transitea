@@ -109,7 +109,7 @@ class ColisServiceImplTest {
     // --- creer ---
 
     @Test
-    void creer_doitSauvegarderColis_etEnregistrerHistorique_quandRequeteValide() {
+    void doit_sauvegarder_colis_et_enregistrer_historique_quand_requete_valide() {
         CreationColisRequete requete = new CreationColisRequete(
                 "Jean Dupont", "0812345678", null,
                 "Marie Martin", "0812345679", null,
@@ -130,7 +130,7 @@ class ColisServiceImplTest {
     }
 
     @Test
-    void creer_doitLancerIllegalStateException_quandCodeTrackingNonUnique_apresMaxTentatives() {
+    void doit_lancer_exception_quand_code_tracking_non_unique_apres_max_tentatives() {
         CreationColisRequete requete = new CreationColisRequete(
                 "Jean", null, null, "Marie", null, null,
                 null, null, null, null, null
@@ -148,7 +148,7 @@ class ColisServiceImplTest {
     // --- lister ---
 
     @Test
-    void lister_doitRetournerTousLesColis_quandStatutNull() {
+    void doit_retourner_tous_les_colis_quand_statut_null() {
         Pageable pageable = PageRequest.of(0, 20);
         Page<Colis> page = new PageImpl<>(List.of(colis));
         when(colisRepository.findByTransporteurAndSupprimeFalse(transporteur, pageable))
@@ -164,7 +164,7 @@ class ColisServiceImplTest {
     }
 
     @Test
-    void lister_doitFiltrerParStatut_quandStatutFourni() {
+    void doit_filtrer_par_statut_quand_statut_fourni() {
         Pageable pageable = PageRequest.of(0, 20);
         Page<Colis> page = new PageImpl<>(List.of(colis));
         when(colisRepository.findByTransporteurAndStatutActuelAndSupprimeFalse(
@@ -184,7 +184,7 @@ class ColisServiceImplTest {
     // --- trouverParId ---
 
     @Test
-    void trouverParId_doitRetournerColis_quandColisAppartientAuTransporteur() {
+    void doit_retourner_colis_quand_il_appartient_au_transporteur() {
         when(colisRepository.findById(10L)).thenReturn(Optional.of(colis));
         when(miseAJourStatutRepository.findByColisOrderByDateCreationAsc(colis))
                 .thenReturn(List.of());
@@ -198,7 +198,7 @@ class ColisServiceImplTest {
     }
 
     @Test
-    void trouverParId_doitAutoriser_LAdmin_PourNimportQuelColis() {
+    void doit_autoriser_admin_pour_nimporte_quel_colis() {
         when(colisRepository.findById(10L)).thenReturn(Optional.of(colis));
         when(miseAJourStatutRepository.findByColisOrderByDateCreationAsc(colis))
                 .thenReturn(List.of());
@@ -211,7 +211,7 @@ class ColisServiceImplTest {
     }
 
     @Test
-    void trouverParId_doitLancer_EntiteNonTrouveeException_quandColisInexistant() {
+    void doit_lancer_entite_non_trouvee_exception_quand_colis_inexistant() {
         when(colisRepository.findById(99L)).thenReturn(Optional.empty());
 
         assertThatThrownBy(() -> colisService.trouverParId(99L, transporteur))
@@ -219,7 +219,7 @@ class ColisServiceImplTest {
     }
 
     @Test
-    void trouverParId_doitLancer_AccesNonAutoriseException_quandTransporteurNonProprietaire() {
+    void doit_lancer_acces_non_autorise_exception_quand_transporteur_non_proprietaire() {
         when(colisRepository.findById(10L)).thenReturn(Optional.of(colis));
 
         assertThatThrownBy(() -> colisService.trouverParId(10L, autreTransporteur))
@@ -229,7 +229,7 @@ class ColisServiceImplTest {
     // --- mettreAJourStatut ---
 
     @Test
-    void mettreAJourStatut_doitMettreAJour_quandTransitionValide() {
+    void doit_mettre_a_jour_statut_quand_transition_valide() {
         MiseAJourStatutRequete requete = new MiseAJourStatutRequete(
                 StatutColis.PRIS_EN_CHARGE, "Kinshasa", "Prise en charge");
         when(colisRepository.findById(10L)).thenReturn(Optional.of(colis));
@@ -245,7 +245,7 @@ class ColisServiceImplTest {
     }
 
     @Test
-    void mettreAJourStatut_doitLancer_TransitionStatutInvalideException_quandTransitionInterdite() {
+    void doit_lancer_exception_quand_transition_statut_interdite() {
         MiseAJourStatutRequete requete = new MiseAJourStatutRequete(
                 StatutColis.LIVRE, null, null);
         when(colisRepository.findById(10L)).thenReturn(Optional.of(colis));
@@ -257,7 +257,7 @@ class ColisServiceImplTest {
     }
 
     @Test
-    void mettreAJourStatut_doitLancer_AccesNonAutoriseException_quandTransporteurNonProprietaire() {
+    void doit_lancer_acces_non_autorise_exception_quand_mise_a_jour_par_non_proprietaire() {
         MiseAJourStatutRequete requete = new MiseAJourStatutRequete(
                 StatutColis.PRIS_EN_CHARGE, null, null);
         when(colisRepository.findById(10L)).thenReturn(Optional.of(colis));
@@ -269,7 +269,7 @@ class ColisServiceImplTest {
     // --- supprimer ---
 
     @Test
-    void supprimer_doitAppliquer_SoftDelete_quandProprietaire() {
+    void doit_appliquer_soft_delete_quand_proprietaire() {
         when(colisRepository.findById(10L)).thenReturn(Optional.of(colis));
         when(colisRepository.save(any(Colis.class))).thenReturn(colis);
 
@@ -281,7 +281,7 @@ class ColisServiceImplTest {
     }
 
     @Test
-    void supprimer_doitLancer_AccesNonAutoriseException_quandTransporteurNonProprietaire() {
+    void doit_lancer_acces_non_autorise_exception_quand_suppression_par_non_proprietaire() {
         when(colisRepository.findById(10L)).thenReturn(Optional.of(colis));
 
         assertThatThrownBy(() -> colisService.supprimer(10L, autreTransporteur))
@@ -291,7 +291,7 @@ class ColisServiceImplTest {
     }
 
     @Test
-    void supprimer_doitLancer_EntiteNonTrouveeException_quandColisDejaSupprimeOuInexistant() {
+    void doit_lancer_entite_non_trouvee_exception_quand_colis_deja_supprime() {
         colis.setSupprime(true);
         when(colisRepository.findById(10L)).thenReturn(Optional.of(colis));
 
@@ -300,7 +300,7 @@ class ColisServiceImplTest {
     }
 
     @Test
-    void supprimer_doitAutoriser_LAdmin_PourNimportQuelColis() {
+    void doit_autoriser_admin_a_supprimer_nimporte_quel_colis() {
         when(colisRepository.findById(10L)).thenReturn(Optional.of(colis));
         when(colisRepository.save(any(Colis.class))).thenReturn(colis);
 
