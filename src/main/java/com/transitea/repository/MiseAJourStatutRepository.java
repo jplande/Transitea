@@ -1,7 +1,7 @@
 package com.transitea.repository;
 
-import com.transitea.entite.Colis;
-import com.transitea.entite.MiseAJourStatut;
+import com.transitea.entity.Colis;
+import com.transitea.entity.MiseAJourStatut;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.stereotype.Repository;
 
