@@ -15,6 +15,7 @@ import com.transitea.mapper.ColisMapper;
 import com.transitea.repository.ColisRepository;
 import com.transitea.repository.MiseAJourStatutRepository;
 import com.transitea.service.ColisService;
+import com.transitea.service.QrCodeService;
 import com.transitea.util.GenerateurCodeTracking;
 import com.transitea.util.ValidateurTransitionStatut;
 import org.slf4j.Logger;
@@ -36,14 +37,17 @@ public class ColisServiceImpl implements ColisService {
     private final ColisRepository colisRepository;
     private final MiseAJourStatutRepository miseAJourStatutRepository;
     private final ColisMapper colisMapper;
+    private final QrCodeService qrCodeService;
 
     public ColisServiceImpl(
             ColisRepository colisRepository,
             MiseAJourStatutRepository miseAJourStatutRepository,
-            ColisMapper colisMapper) {
+            ColisMapper colisMapper,
+            QrCodeService qrCodeService) {
         this.colisRepository = colisRepository;
         this.miseAJourStatutRepository = miseAJourStatutRepository;
         this.colisMapper = colisMapper;
+        this.qrCodeService = qrCodeService;
     }
 
     @Override
@@ -165,6 +169,14 @@ public class ColisServiceImpl implements ColisService {
         colisRepository.save(colis);
 
         journal.info("Colis {} supprime (soft delete)", colis.getCodeTracking());
+    }
+
+    @Override
+    @Transactional(readOnly = true)
+    public byte[] genererQrCode(Long id, Utilisateur utilisateur) {
+        Colis colis = recupererColisOuEchouer(id);
+        verifierAccesAuColis(colis, utilisateur);
+        return qrCodeService.generer(colis.getCodeTracking());
     }
 
     private Colis recupererColisOuEchouer(Long id) {
