@@ -20,16 +20,16 @@ import org.springframework.web.bind.annotation.RestController;
 
 @RestController
 @RequestMapping("/v1/auth")
-public class AuthControleur {
+public class AuthController {
 
     private final AuthService authService;
 
-    public AuthControleur(AuthService authService) {
+    public AuthController(AuthService authService) {
         this.authService = authService;
     }
 
     @PostMapping("/register")
-    public ResponseEntity<AuthReponse> inscrire(
+    public ResponseEntity<AuthReponse> register(
             @Valid @RequestBody InscriptionRequete requete) {
 
         AuthReponse reponse = authService.inscrire(requete);
@@ -37,7 +37,7 @@ public class AuthControleur {
     }
 
     @PostMapping("/login")
-    public ResponseEntity<AuthReponse> connecter(
+    public ResponseEntity<AuthReponse> login(
             @Valid @RequestBody ConnexionRequete requete) {
 
         AuthReponse reponse = authService.connecter(requete);
@@ -45,7 +45,7 @@ public class AuthControleur {
     }
 
     @PostMapping("/refresh")
-    public ResponseEntity<AuthReponse> rafraichir(
+    public ResponseEntity<AuthReponse> refresh(
             @Valid @RequestBody RafraichissementRequete requete) {
 
         AuthReponse reponse = authService.rafraichir(requete);
@@ -54,12 +54,12 @@ public class AuthControleur {
 
     @PostMapping("/logout")
     @ResponseStatus(HttpStatus.NO_CONTENT)
-    public void deconnecter(@Valid @RequestBody RafraichissementRequete requete) {
+    public void logout(@Valid @RequestBody RafraichissementRequete requete) {
         authService.deconnecter(requete.refreshToken());
     }
 
     @GetMapping("/me")
-    public ResponseEntity<UtilisateurReponse> obtenirProfil(
+    public ResponseEntity<UtilisateurReponse> getProfile(
             @AuthenticationPrincipal Utilisateur utilisateurConnecte) {
 
         UtilisateurReponse reponse = authService.obtenirProfil(utilisateurConnecte);

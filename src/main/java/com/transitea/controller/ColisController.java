@@ -27,18 +27,18 @@ import org.springframework.web.bind.annotation.RestController;
 
 @RestController
 @RequestMapping("/v1/colis")
-public class ColisControleur {
+public class ColisController {
 
     private static final int TAILLE_PAGE_PAR_DEFAUT = 20;
 
     private final ColisService colisService;
 
-    public ColisControleur(ColisService colisService) {
+    public ColisController(ColisService colisService) {
         this.colisService = colisService;
     }
 
     @PostMapping
-    public ResponseEntity<ColisReponse> creer(
+    public ResponseEntity<ColisReponse> create(
             @Valid @RequestBody CreationColisRequete requete,
             @AuthenticationPrincipal Utilisateur utilisateurConnecte) {
 
@@ -47,7 +47,7 @@ public class ColisControleur {
     }
 
     @GetMapping
-    public ResponseEntity<ReponsePagee<ColisReponse>> lister(
+    public ResponseEntity<ReponsePagee<ColisReponse>> list(
             @RequestParam(required = false) StatutColis statut,
             @RequestParam(defaultValue = "0") int page,
             @RequestParam(defaultValue = "" + TAILLE_PAGE_PAR_DEFAUT) int taille,
@@ -63,7 +63,7 @@ public class ColisControleur {
     }
 
     @GetMapping("/{id}")
-    public ResponseEntity<ColisReponse> trouverParId(
+    public ResponseEntity<ColisReponse> findById(
             @PathVariable Long id,
             @AuthenticationPrincipal Utilisateur utilisateurConnecte) {
 
@@ -72,7 +72,7 @@ public class ColisControleur {
     }
 
     @PatchMapping("/{id}/statut")
-    public ResponseEntity<ColisReponse> mettreAJourStatut(
+    public ResponseEntity<ColisReponse> updateStatus(
             @PathVariable Long id,
             @Valid @RequestBody MiseAJourStatutRequete requete,
             @AuthenticationPrincipal Utilisateur utilisateurConnecte) {
@@ -83,7 +83,7 @@ public class ColisControleur {
 
     @DeleteMapping("/{id}")
     @ResponseStatus(HttpStatus.NO_CONTENT)
-    public void supprimer(
+    public void delete(
             @PathVariable Long id,
             @AuthenticationPrincipal Utilisateur utilisateurConnecte) {
 
