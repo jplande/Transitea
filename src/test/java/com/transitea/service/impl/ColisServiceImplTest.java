@@ -15,6 +15,7 @@ import com.transitea.exception.TransitionStatutInvalideException;
 import com.transitea.mapper.ColisMapper;
 import com.transitea.repository.ColisRepository;
 import com.transitea.repository.MiseAJourStatutRepository;
+import com.transitea.service.QrCodeService;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
@@ -51,6 +52,9 @@ class ColisServiceImplTest {
 
     @Mock
     private ColisMapper colisMapper;
+
+    @Mock
+    private QrCodeService qrCodeService;
 
     @InjectMocks
     private ColisServiceImpl colisService;
@@ -307,5 +311,48 @@ class ColisServiceImplTest {
         colisService.supprimer(10L, admin);
 
         verify(colisRepository, times(1)).save(any(Colis.class));
+    }
+
+    // --- genererQrCode ---
+
+    @Test
+    void doit_generer_qrcode_quand_proprietaire() {
+        byte[] qrCodeBytes = new byte[]{1, 2, 3};
+        when(colisRepository.findById(10L)).thenReturn(Optional.of(colis));
+        when(qrCodeService.generer("TRA-2026-ABC123")).thenReturn(qrCodeBytes);
+
+        byte[] resultat = colisService.genererQrCode(10L, transporteur);
+
+        assertThat(resultat).isEqualTo(qrCodeBytes);
+        verify(qrCodeService).generer("TRA-2026-ABC123");
+    }
+
+    @Test
+    void doit_generer_qrcode_quand_admin() {
+        byte[] qrCodeBytes = new byte[]{1, 2, 3};
+        when(colisRepository.findById(10L)).thenReturn(Optional.of(colis));
+        when(qrCodeService.generer("TRA-2026-ABC123")).thenReturn(qrCodeBytes);
+
+        byte[] resultat = colisService.genererQrCode(10L, admin);
+
+        assertThat(resultat).isEqualTo(qrCodeBytes);
+    }
+
+    @Test
+    void doit_lancer_acces_non_autorise_exception_quand_qrcode_demande_par_non_proprietaire() {
+        when(colisRepository.findById(10L)).thenReturn(Optional.of(colis));
+
+        assertThatThrownBy(() -> colisService.genererQrCode(10L, autreTransporteur))
+                .isInstanceOf(AccesNonAutoriseException.class);
+
+        verify(qrCodeService, never()).generer(anyString());
+    }
+
+    @Test
+    void doit_lancer_entite_non_trouvee_exception_quand_qrcode_pour_colis_inexistant() {
+        when(colisRepository.findById(99L)).thenReturn(Optional.empty());
+
+        assertThatThrownBy(() -> colisService.genererQrCode(99L, transporteur))
+                .isInstanceOf(EntiteNonTrouveeException.class);
     }
 }

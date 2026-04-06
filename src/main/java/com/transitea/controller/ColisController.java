@@ -12,6 +12,7 @@ import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.domain.Sort;
 import org.springframework.http.HttpStatus;
+import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.core.annotation.AuthenticationPrincipal;
 import org.springframework.web.bind.annotation.DeleteMapping;
@@ -69,6 +70,17 @@ public class ColisController {
 
         ColisReponse reponse = colisService.trouverParId(id, utilisateurConnecte);
         return ResponseEntity.ok(reponse);
+    }
+
+    @GetMapping(value = "/{id}/qrcode", produces = MediaType.IMAGE_PNG_VALUE)
+    public ResponseEntity<byte[]> getQrCode(
+            @PathVariable Long id,
+            @AuthenticationPrincipal Utilisateur utilisateurConnecte) {
+
+        byte[] qrCode = colisService.genererQrCode(id, utilisateurConnecte);
+        return ResponseEntity.ok()
+                .contentType(MediaType.IMAGE_PNG)
+                .body(qrCode);
     }
 
     @PatchMapping("/{id}/statut")

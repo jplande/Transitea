@@ -19,4 +19,6 @@ public interface ColisService {
     ColisReponse mettreAJourStatut(Long id, MiseAJourStatutRequete requete, Utilisateur utilisateur);
 
     void supprimer(Long id, Utilisateur transporteur);
+
+    byte[] genererQrCode(Long id, Utilisateur utilisateur);
 }
