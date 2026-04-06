@@ -1,6 +1,6 @@
 package com.transitea.exception;
 
-import com.transitea.dto.reponse.ErreurReponse;
+import com.transitea.dto.response.ErreurReponse;
 import jakarta.servlet.http.HttpServletRequest;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;

@@ -1,8 +1,8 @@
 package com.transitea.repository;
 
-import com.transitea.entite.Colis;
-import com.transitea.entite.Notification;
-import com.transitea.entite.enumeration.StatutNotification;
+import com.transitea.entity.Colis;
+import com.transitea.entity.Notification;
+import com.transitea.entity.enumeration.StatutNotification;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Modifying;
 import org.springframework.data.jpa.repository.Query;

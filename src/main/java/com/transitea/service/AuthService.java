@@ -1,11 +1,11 @@
 package com.transitea.service;
 
-import com.transitea.dto.requete.ConnexionRequete;
-import com.transitea.dto.requete.InscriptionRequete;
-import com.transitea.dto.requete.RafraichissementRequete;
-import com.transitea.dto.reponse.AuthReponse;
-import com.transitea.dto.reponse.UtilisateurReponse;
-import com.transitea.entite.Utilisateur;
+import com.transitea.dto.request.ConnexionRequete;
+import com.transitea.dto.request.InscriptionRequete;
+import com.transitea.dto.request.RafraichissementRequete;
+import com.transitea.dto.response.AuthReponse;
+import com.transitea.dto.response.UtilisateurReponse;
+import com.transitea.entity.Utilisateur;
 
 public interface AuthService {
 

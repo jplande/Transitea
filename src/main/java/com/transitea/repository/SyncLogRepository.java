@@ -1,7 +1,7 @@
 package com.transitea.repository;
 
-import com.transitea.entite.SyncLog;
-import com.transitea.entite.Utilisateur;
+import com.transitea.entity.SyncLog;
+import com.transitea.entity.Utilisateur;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Modifying;
 import org.springframework.data.jpa.repository.Query;

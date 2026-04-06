@@ -1,10 +1,10 @@
 package com.transitea.mapper;
 
-import com.transitea.dto.reponse.ColisReponse;
-import com.transitea.dto.reponse.MiseAJourStatutReponse;
-import com.transitea.entite.Colis;
-import com.transitea.entite.MiseAJourStatut;
-import com.transitea.entite.Utilisateur;
+import com.transitea.dto.response.ColisReponse;
+import com.transitea.dto.response.MiseAJourStatutReponse;
+import com.transitea.entity.Colis;
+import com.transitea.entity.MiseAJourStatut;
+import com.transitea.entity.Utilisateur;
 import org.mapstruct.Mapper;
 import org.mapstruct.Mapping;
 import org.mapstruct.Named;

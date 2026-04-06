@@ -1,11 +1,11 @@
 package com.transitea.service;
 
-import com.transitea.dto.requete.CreationColisRequete;
-import com.transitea.dto.requete.MiseAJourStatutRequete;
-import com.transitea.dto.reponse.ColisReponse;
-import com.transitea.dto.reponse.ReponsePagee;
-import com.transitea.entite.Utilisateur;
-import com.transitea.entite.enumeration.StatutColis;
+import com.transitea.dto.request.CreationColisRequete;
+import com.transitea.dto.request.MiseAJourStatutRequete;
+import com.transitea.dto.response.ColisReponse;
+import com.transitea.dto.response.ReponsePagee;
+import com.transitea.entity.Utilisateur;
+import com.transitea.entity.enumeration.StatutColis;
 import org.springframework.data.domain.Pageable;
 
 public interface ColisService {
