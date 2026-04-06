@@ -1,7 +1,7 @@
 package com.transitea.dto.response;
 
-import com.transitea.entity.enumeration.Role;
-import com.transitea.entity.enumeration.StatutUtilisateur;
+import com.transitea.entity.enums.Role;
+import com.transitea.entity.enums.StatutUtilisateur;
 
 import java.time.LocalDateTime;
 

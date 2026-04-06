@@ -5,7 +5,7 @@ import com.transitea.dto.request.MiseAJourStatutRequete;
 import com.transitea.dto.response.ColisReponse;
 import com.transitea.dto.response.ReponsePagee;
 import com.transitea.entity.Utilisateur;
-import com.transitea.entity.enumeration.StatutColis;
+import com.transitea.entity.enums.StatutColis;
 import com.transitea.service.ColisService;
 import jakarta.validation.Valid;
 import org.springframework.data.domain.PageRequest;

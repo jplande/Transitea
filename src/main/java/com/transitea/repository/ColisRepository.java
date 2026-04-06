@@ -2,7 +2,7 @@ package com.transitea.repository;
 
 import com.transitea.entity.Colis;
 import com.transitea.entity.Utilisateur;
-import com.transitea.entity.enumeration.StatutColis;
+import com.transitea.entity.enums.StatutColis;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.jpa.repository.JpaRepository;

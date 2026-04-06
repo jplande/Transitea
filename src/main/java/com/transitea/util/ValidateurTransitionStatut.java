@@ -1,6 +1,6 @@
 package com.transitea.util;
 
-import com.transitea.entity.enumeration.StatutColis;
+import com.transitea.entity.enums.StatutColis;
 import com.transitea.exception.TransitionStatutInvalideException;
 
 import java.util.EnumMap;

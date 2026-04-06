@@ -1,6 +1,6 @@
 package com.transitea.entity;
 
-import com.transitea.entity.enumeration.StatutColis;
+import com.transitea.entity.enums.StatutColis;
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.EnumType;

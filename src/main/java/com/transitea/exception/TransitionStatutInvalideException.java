@@ -1,6 +1,6 @@
 package com.transitea.exception;
 
-import com.transitea.entity.enumeration.StatutColis;
+import com.transitea.entity.enums.StatutColis;
 
 public class TransitionStatutInvalideException extends ErreurMetier {
 

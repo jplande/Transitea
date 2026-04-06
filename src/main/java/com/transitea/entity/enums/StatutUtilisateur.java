@@ -1,4 +1,4 @@
-package com.transitea.entity.enumeration;
+package com.transitea.entity.enums;
 
 public enum StatutUtilisateur {
     ACTIF,

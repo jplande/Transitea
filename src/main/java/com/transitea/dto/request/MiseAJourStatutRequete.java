@@ -1,6 +1,6 @@
 package com.transitea.dto.request;
 
-import com.transitea.entity.enumeration.StatutColis;
+import com.transitea.entity.enums.StatutColis;
 import jakarta.validation.constraints.NotNull;
 import jakarta.validation.constraints.Size;
 

@@ -1,7 +1,7 @@
 package com.transitea.entity;
 
-import com.transitea.entity.enumeration.Role;
-import com.transitea.entity.enumeration.StatutUtilisateur;
+import com.transitea.entity.enums.Role;
+import com.transitea.entity.enums.StatutUtilisateur;
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.EnumType;

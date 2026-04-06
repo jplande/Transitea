@@ -1,7 +1,7 @@
 package com.transitea.entity;
 
-import com.transitea.entity.enumeration.StatutNotification;
-import com.transitea.entity.enumeration.TypeCanal;
+import com.transitea.entity.enums.StatutNotification;
+import com.transitea.entity.enums.TypeCanal;
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.EnumType;

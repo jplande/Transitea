@@ -1,7 +1,7 @@
 package com.transitea.repository;
 
 import com.transitea.entity.Utilisateur;
-import com.transitea.entity.enumeration.StatutUtilisateur;
+import com.transitea.entity.enums.StatutUtilisateur;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.stereotype.Repository;
 

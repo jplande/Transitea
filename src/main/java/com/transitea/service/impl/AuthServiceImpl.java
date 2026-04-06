@@ -7,7 +7,7 @@ import com.transitea.dto.response.AuthReponse;
 import com.transitea.dto.response.UtilisateurReponse;
 import com.transitea.entity.RefreshToken;
 import com.transitea.entity.Utilisateur;
-import com.transitea.entity.enumeration.Role;
+import com.transitea.entity.enums.Role;
 import com.transitea.exception.ErreurMetier;
 import com.transitea.exception.EntiteNonTrouveeException;
 import com.transitea.exception.TokenInvalideException;

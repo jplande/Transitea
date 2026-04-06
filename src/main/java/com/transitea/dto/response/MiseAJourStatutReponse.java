@@ -1,6 +1,6 @@
 package com.transitea.dto.response;
 
-import com.transitea.entity.enumeration.StatutColis;
+import com.transitea.entity.enums.StatutColis;
 
 import java.time.LocalDateTime;
 
