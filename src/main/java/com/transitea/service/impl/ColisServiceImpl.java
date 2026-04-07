@@ -15,6 +15,7 @@ import com.transitea.mapper.ColisMapper;
 import com.transitea.repository.ColisRepository;
 import com.transitea.repository.MiseAJourStatutRepository;
 import com.transitea.service.ColisService;
+import com.transitea.service.NotificationService;
 import com.transitea.service.QrCodeService;
 import com.transitea.util.GenerateurCodeTracking;
 import com.transitea.util.ValidateurTransitionStatut;
@@ -38,16 +39,19 @@ public class ColisServiceImpl implements ColisService {
     private final MiseAJourStatutRepository miseAJourStatutRepository;
     private final ColisMapper colisMapper;
     private final QrCodeService qrCodeService;
+    private final NotificationService notificationService;
 
     public ColisServiceImpl(
             ColisRepository colisRepository,
             MiseAJourStatutRepository miseAJourStatutRepository,
             ColisMapper colisMapper,
-            QrCodeService qrCodeService) {
+            QrCodeService qrCodeService,
+            NotificationService notificationService) {
         this.colisRepository = colisRepository;
         this.miseAJourStatutRepository = miseAJourStatutRepository;
         this.colisMapper = colisMapper;
         this.qrCodeService = qrCodeService;
+        this.notificationService = notificationService;
     }
 
     @Override
@@ -156,6 +160,8 @@ public class ColisServiceImpl implements ColisService {
 
         journal.info("Statut du colis {} mis a jour : {} -> {}",
                 colis.getCodeTracking(), ancienStatut, requete.statut());
+
+        notificationService.notifierChangementStatut(colusMisAJour, ancienStatut);
 
         return colisMapper.versReponse(colusMisAJour);
     }

@@ -15,6 +15,7 @@ import com.transitea.exception.TransitionStatutInvalideException;
 import com.transitea.mapper.ColisMapper;
 import com.transitea.repository.ColisRepository;
 import com.transitea.repository.MiseAJourStatutRepository;
+import com.transitea.service.NotificationService;
 import com.transitea.service.QrCodeService;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
@@ -55,6 +56,9 @@ class ColisServiceImplTest {
 
     @Mock
     private QrCodeService qrCodeService;
+
+    @Mock
+    private NotificationService notificationService;
 
     @InjectMocks
     private ColisServiceImpl colisService;
