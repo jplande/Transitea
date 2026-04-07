@@ -24,6 +24,7 @@ import org.mockito.ArgumentCaptor;
 import org.mockito.InjectMocks;
 import org.mockito.Mock;
 import org.mockito.junit.jupiter.MockitoExtension;
+import org.springframework.test.util.ReflectionTestUtils;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageImpl;
 import org.springframework.data.domain.PageRequest;
@@ -71,6 +72,8 @@ class ColisServiceImplTest {
 
     @BeforeEach
     void initialiser() {
+        ReflectionTestUtils.setField(colisService, "baseUrl", "http://localhost:8080");
+
         transporteur = Utilisateur.builder()
                 .nom("Lumbu")
                 .prenom("Louange")
@@ -322,20 +325,22 @@ class ColisServiceImplTest {
     @Test
     void doit_generer_qrcode_quand_proprietaire() {
         byte[] qrCodeBytes = new byte[]{1, 2, 3};
+        String urlTracking = "http://localhost:8080/v1/tracking/TRA-2026-ABC123";
         when(colisRepository.findById(10L)).thenReturn(Optional.of(colis));
-        when(qrCodeService.generer("TRA-2026-ABC123")).thenReturn(qrCodeBytes);
+        when(qrCodeService.generer(urlTracking)).thenReturn(qrCodeBytes);
 
         byte[] resultat = colisService.genererQrCode(10L, transporteur);
 
         assertThat(resultat).isEqualTo(qrCodeBytes);
-        verify(qrCodeService).generer("TRA-2026-ABC123");
+        verify(qrCodeService).generer(urlTracking);
     }
 
     @Test
     void doit_generer_qrcode_quand_admin() {
         byte[] qrCodeBytes = new byte[]{1, 2, 3};
+        String urlTracking = "http://localhost:8080/v1/tracking/TRA-2026-ABC123";
         when(colisRepository.findById(10L)).thenReturn(Optional.of(colis));
-        when(qrCodeService.generer("TRA-2026-ABC123")).thenReturn(qrCodeBytes);
+        when(qrCodeService.generer(urlTracking)).thenReturn(qrCodeBytes);
 
         byte[] resultat = colisService.genererQrCode(10L, admin);
 

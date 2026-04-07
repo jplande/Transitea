@@ -21,6 +21,7 @@ import com.transitea.util.GenerateurCodeTracking;
 import com.transitea.util.ValidateurTransitionStatut;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
@@ -40,6 +41,9 @@ public class ColisServiceImpl implements ColisService {
     private final ColisMapper colisMapper;
     private final QrCodeService qrCodeService;
     private final NotificationService notificationService;
+
+    @Value("${application.base-url:http://localhost:8080}")
+    private String baseUrl;
 
     public ColisServiceImpl(
             ColisRepository colisRepository,
@@ -182,7 +186,8 @@ public class ColisServiceImpl implements ColisService {
     public byte[] genererQrCode(Long id, Utilisateur utilisateur) {
         Colis colis = recupererColisOuEchouer(id);
         verifierAccesAuColis(colis, utilisateur);
-        return qrCodeService.generer(colis.getCodeTracking());
+        String urlTracking = baseUrl + "/v1/tracking/" + colis.getCodeTracking();
+        return qrCodeService.generer(urlTracking);
     }
 
     private Colis recupererColisOuEchouer(Long id) {
