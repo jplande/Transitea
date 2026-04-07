@@ -85,6 +85,8 @@ application:
     cache-repertoire: ${QRCODE_CACHE_PATH:./cache/qrcodes}
     cache-duree-jours: 90
 
+  base-url: ${APP_BASE_URL:http://localhost:8080}
+
   whatsapp:
     token: ${WHATSAPP_TOKEN:}
     phone-number-id: ${WHATSAPP_PHONE_NUMBER_ID:}
